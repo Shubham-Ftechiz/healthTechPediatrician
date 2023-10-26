@@ -2,8 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const getPediatrician = require("./routes/getPediatrician");
+const connectDB = require("./config/connectDB");
+const dotenv = require("dotenv");
 
 const app = express();
+
+// env file
+dotenv.config();
 
 app.use(
   bodyParser.urlencoded({
@@ -28,6 +33,9 @@ app.get("/", (req, res) => {
     message: "Testing APIs for healthTech",
   });
 });
+
+// Connect to HealthTech DB
+connectDB();
 
 // Routes
 getPediatrician(app);

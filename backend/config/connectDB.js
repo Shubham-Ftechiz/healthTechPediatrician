@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
-const config = require("config");
-//const db = config.get("mongoURI");
-const URI =
-  "mongodb+srv://rajatbhatt123:rajatbhatt123@cluster0.hdttm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+//const URI = `mongodb://0.0.0.0:27017/admin`;
+const URI = `mongodb+srv://Shubham:Shubham2023@healthteach.s0qt1sy.mongodb.net/?retryWrites=true&w=majority`;
+
 const connectDB = async () => {
   try {
     await mongoose.connect(URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
     });
     console.log("MongoDb is Successfully Connected");
   } catch (err) {

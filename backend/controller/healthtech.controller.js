@@ -1,20 +1,23 @@
-exports.getPediatricianInfo = async (req, res) => {
-  const pediatricianData = [
-    {
-      name: "Blood Sugar",
-      measure: "80",
-      measureUnit: "mg / dL",
-      result: "Normal",
-      colour: "#F8DEBD",
-    },
-    {
-      name: "Heart Rate",
-      measure: "98",
-      measureUnit: "bpm",
-      result: "Normal",
-      colour: "#FBF0F3",
-    },
-  ];
+const User = require("../model/User");
 
-  res.send(pediatricianData);
+exports.getPediatricianInfo = async (req, res) => {
+  const insertUser = {
+    name: "Shubham",
+    email: "spal5776@gmail.com",
+    password: "12345",
+    date: Date.now(),
+    role: "Admin",
+    token: "shshshsskskk125ss@3",
+  };
+
+  User.create(insertUser)
+    .then((data) => {
+      console.log("InsertionData:", data);
+      res.send({
+        message: "User Created",
+      });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
