@@ -10,7 +10,7 @@ const getPediatrician = (app) => {
   router.post("/register", healthTech.register);
 
   // Login Route
-  //router.get("/login", healthTech.login);
+  router.post("/login", healthTech.login);
 
   app.use("/api", router);
 };

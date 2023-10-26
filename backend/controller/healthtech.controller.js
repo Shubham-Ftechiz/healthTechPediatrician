@@ -37,3 +37,31 @@ exports.register = async (req, res) => {
       });
     });
 };
+
+exports.login = async (req, res) => {
+  const r = req.body;
+
+  // Encrypt Password
+
+  User.find({ email: r.email })
+    .then((data) => {
+      // Decrypt Password
+      const result = bcrypt.compareSync(r.password, data[0].password);
+      // If true password match if false not match
+
+      if (result === true) {
+        // generate jwt token here and add in response
+        res.send({
+          message: "Login Successfully",
+          token: "Generate Token",
+        });
+      } else {
+        res.send({
+          message: "Check email or password1",
+        });
+      }
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
