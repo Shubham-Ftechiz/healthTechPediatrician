@@ -1,6 +1,8 @@
 const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 
+const { generateJwtToken } = require("../helper/generateJwtToken");
+
 exports.getPediatricianInfo = async (req, res) => {
   User.find()
     .then((data) => {
@@ -17,11 +19,6 @@ exports.register = async (req, res) => {
   // Encrypt Password
   const salt = await bcrypt.genSalt(10);
   const encryptPass = await bcrypt.hash(r.password, salt);
-
-  // Decrypt Password
-
-  const result = bcrypt.compareSync(r.password, encryptPass);
-  // If true password match if false not match
 
   r.password = encryptPass;
 
@@ -47,21 +44,27 @@ exports.login = async (req, res) => {
     .then((data) => {
       // Decrypt Password
       const result = bcrypt.compareSync(r.password, data[0].password);
-      // If true password match if false not match
+      // If true password matched if false not match
 
       if (result === true) {
         // generate jwt token here and add in response
+
+        const Id = data[0]._id.valueOf();
+        const tokenResp = generateJwtToken(Id);
+
         res.send({
           message: "Login Successfully",
-          token: "Generate Token",
+          token: tokenResp,
         });
       } else {
         res.send({
-          message: "Check email or password1",
+          message: "Password is incorrect",
         });
       }
     })
     .catch((err) => {
-      res.send(err);
+      res.send({
+        message: "Email id is incorrect",
+      });
     });
 };

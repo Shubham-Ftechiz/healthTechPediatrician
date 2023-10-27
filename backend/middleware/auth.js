@@ -1,21 +1,40 @@
 const jwt = require("jsonwebtoken");
-const config = require("config");
+const validateUser = require("../helper/validateUser.js");
 
-module.exports = function (req, res, next) {
-  //Get the tokrn form header
-  const token = req.header("x-auth-token");
+// Verify token
 
-  // check if no token
+exports.verifyJwtToken = async (req, res, next) => {
+  console.log("Check_Auth");
+  //Get the token form header
+
+  var token = req.headers["x-auth-token"] || req.headers["authorization"];
+
   if (!token) {
-    return res.status(401).json({ msg: "No token, Authorization denied" });
+    return res
+      .status(401)
+      .json({ msg: "No bearer token, Authorization denied" });
   }
 
-  //veryfy the token
-  try {
-    const decoded = jwt.verify(token, config.get("jwtSecret"));
-    req.user = decoded.user;
-    next();
-  } catch (err) {
-    res.status(401).json({ msg: "Token is not valid" });
+  if (token.startsWith("Bearer") || token.startsWith("bearer")) {
+    token = token.slice(7, token.length);
+
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, "the-super-strong-secrect");
+        req.msg = decoded.msg;
+
+        const response = await validateUser(req.headers, req, res);
+        console.log("Response : ", response);
+        if (response === true) {
+          next();
+        } else {
+          res.status(401).json({ msg: "User is not active yet!" });
+        }
+      } catch (err) {
+        res.status(401).json({ msg: err.message });
+      }
+    }
+  } else {
+    res.status(401).json({ msg: "Please provide bearer token" });
   }
 };
