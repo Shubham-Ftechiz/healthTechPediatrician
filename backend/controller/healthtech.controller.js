@@ -1,4 +1,8 @@
 const User = require("../model/User");
+const HealthMetrics = require("../model/HealthMetrics");
+const ActivityGrowth = require("../model/ActivityGrowth");
+const BodyParts = require("../model/BodyParts");
+
 const bcrypt = require("bcryptjs");
 
 const { generateJwtToken } = require("../helper/generateJwtToken");
@@ -65,6 +69,94 @@ exports.login = async (req, res) => {
     .catch((err) => {
       res.send({
         message: "Email id is incorrect",
+      });
+    });
+};
+
+// Get APIs of HealthTech
+
+exports.getHealthMetrics = async (req, res) => {
+  HealthMetrics.find()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send({
+        message: err.message,
+      });
+    });
+};
+
+exports.getActivityGrowth = async (req, res) => {
+  ActivityGrowth.find()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send({
+        message: err.message,
+      });
+    });
+};
+
+exports.getbodyparts = async (req, res) => {
+  BodyParts.find()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send({
+        message: err.message,
+      });
+    });
+};
+
+// Post APIs for HealthTech
+
+exports.insertHealthMetrics = async (req, res) => {
+  const r = req.body;
+
+  HealthMetrics.create(r)
+    .then((data) => {
+      res.send({
+        message: "HealthMatrics Inserted",
+      });
+    })
+    .catch((err) => {
+      res.send({
+        message: err.message,
+      });
+    });
+};
+
+exports.insertActivityGrowth = async (req, res) => {
+  const r = req.body;
+
+  ActivityGrowth.create(r)
+    .then((data) => {
+      res.send({
+        message: "Activity Growth Inserted",
+      });
+    })
+    .catch((err) => {
+      res.send({
+        message: err.message,
+      });
+    });
+};
+
+exports.insertBodyParts = async (req, res) => {
+  const r = req.body;
+
+  BodyParts.create(r)
+    .then((data) => {
+      res.send({
+        message: "Body Parts Inserted",
+      });
+    })
+    .catch((err) => {
+      res.send({
+        message: err.message,
       });
     });
 };

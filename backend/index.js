@@ -4,6 +4,7 @@ const cors = require("cors");
 const getPediatrician = require("./routes/getPediatrician");
 const connectDB = require("./config/connectDB");
 const dotenv = require("dotenv");
+const dashbord = require("./routes/dashboard");
 
 const app = express();
 
@@ -39,6 +40,8 @@ connectDB();
 
 // Routes
 getPediatrician(app);
+
+dashbord(app);
 
 const PORT = process.env.PORT | 5000;
 
