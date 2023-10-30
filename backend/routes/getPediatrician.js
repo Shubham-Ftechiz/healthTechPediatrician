@@ -8,7 +8,9 @@ const getPediatrician = (app) => {
   const router = require("express").Router();
 
   // Get getPediatrician Route
-  router.get("/getPediatricianInfo", auth, healthTech.getPediatricianInfo);
+
+  //router.get("/getPediatricianInfo", auth, healthTech.getPediatricianInfo);
+  router.get("/getPediatricianInfo", healthTech.getPediatricianInfo);
 
   // Register Route
   router.post("/register", healthTech.register);

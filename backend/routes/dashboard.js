@@ -14,7 +14,8 @@ const dashbord = (app) => {
   router.post("/insertactivitygrowth", healthTech.insertActivityGrowth);
   router.post("/insertbodyparts", healthTech.insertBodyParts);
 
-  app.use("/api", auth, router);
+  //app.use("/api", auth, router);
+  app.use("/api", router);
 };
 
 module.exports = dashbord;
