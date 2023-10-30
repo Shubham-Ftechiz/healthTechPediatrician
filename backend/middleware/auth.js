@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-//const validateUser = require("../helper/validateUser.js");
 
 // Verify token
 

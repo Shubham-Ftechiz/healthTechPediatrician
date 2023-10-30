@@ -16,8 +16,8 @@ import { getBodyParts } from "../../actions/index";
 
 const BMICalculator = () => {
     
-    //const bodyParts = 'https://shy-plum-dugong-tutu.cyclic.app/api/bodyparts';
-    const bodyParts = "http://localhost:5000/api/bodyparts";
+    const bodyParts = 'https://shy-plum-dugong-tutu.cyclic.app/api/bodyparts';
+    //const bodyParts = "http://localhost:5000/api/bodyparts";
     
     const bodyPartsDetails = useSelector((state) => state.changeBodyParts)
     const dispatch = useDispatch();

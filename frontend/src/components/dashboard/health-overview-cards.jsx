@@ -15,11 +15,11 @@ import { getHealthMetrics, getBarData } from "../../actions/index";
 
 const HealthOverviewCards = () => {
   
-  /* const healthmetricsAPI = 'https://shy-plum-dugong-tutu.cyclic.app/api/healthmetrics';
-  const activitygrowthAPI = 'https://shy-plum-dugong-tutu.cyclic.app/api/activitygrowth'; */
+  const healthmetricsAPI = 'https://shy-plum-dugong-tutu.cyclic.app/api/healthmetrics';
+  const activitygrowthAPI = 'https://shy-plum-dugong-tutu.cyclic.app/api/activitygrowth';
 
-  const healthmetricsAPI = 'http://localhost:5000/api/healthmetrics';
-  const activitygrowthAPI = 'http://localhost:5000/api/activitygrowth';
+  /* const healthmetricsAPI = 'http://localhost:5000/api/healthmetrics';
+  const activitygrowthAPI = 'http://localhost:5000/api/activitygrowth'; */
 
   const dispatch = useDispatch();
 
