@@ -1,10 +1,9 @@
 const jwt = require("jsonwebtoken");
-const validateUser = require("../helper/validateUser.js");
+//const validateUser = require("../helper/validateUser.js");
 
 // Verify token
 
 exports.verifyJwtToken = async (req, res, next) => {
-  console.log("Check_Auth");
   //Get the token form header
 
   var token = req.headers["x-auth-token"] || req.headers["authorization"];
@@ -23,12 +22,10 @@ exports.verifyJwtToken = async (req, res, next) => {
         const decoded = jwt.verify(token, "the-super-strong-secrect");
         req.msg = decoded.msg;
 
-        const response = await validateUser(req.headers, req, res);
-        console.log("Response : ", response);
-        if (response === true) {
+        if (decoded.msg === "token_generated") {
           next();
         } else {
-          res.status(401).json({ msg: "User is not active yet!" });
+          res.status(401).json({ msg: "Insert correct jwt token" });
         }
       } catch (err) {
         res.status(401).json({ msg: err.message });
