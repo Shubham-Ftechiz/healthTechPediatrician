@@ -113,7 +113,7 @@ const BMICalculator = () => {
 
                 <div className="cardsManage">
                     {bodyPartsDetails?.map((partsBody, index) =>
-                        <div className="bodyParts">
+                        <div key={index} className="bodyParts">
                             <div className="subBodyPart">
                                 {partsBody.parts}
                             </div>
