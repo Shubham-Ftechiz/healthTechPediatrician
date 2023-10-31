@@ -73,7 +73,7 @@ return(
          <div className="mainCards">
         {healthMetricsState?.map((data, index) => {
           return(
-            <div className="cards">
+            <div key={index} className="cards">
               <div className="topIcon">
                 <div className="iconBackground" style={{ backgroundColor: data.colour }}>
                       <img src={iconArr[index]} alt="image" />
