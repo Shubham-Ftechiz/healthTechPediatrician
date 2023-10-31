@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-//const URI = `mongodb://0.0.0.0:27017/admin`;
-const URI = `mongodb+srv://Shubham:Shubham2023@healthteach.s0qt1sy.mongodb.net/?retryWrites=true&w=majority`;
+dotenv.config();
+
+//const URI = `mongodb://0.0.0.0:27017/admin`; // For local db Uri
+
+const URI = process.env.MONGO_URI;
 
 const connectDB = async () => {
   try {
