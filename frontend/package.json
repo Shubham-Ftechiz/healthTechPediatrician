@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@vitejs/plugin-react-swc": "^3.4.1",
     "antd": "^5.10.1",
@@ -25,6 +23,7 @@
   "scripts": {
     "start": "vite --port 3001",
     "build": "tsc && vite build",
+    "test": "vitest",
     "serve": "vite preview"
   },
   "eslintConfig": {
@@ -46,6 +45,10 @@
     ]
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "jsdom": "^22.1.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }

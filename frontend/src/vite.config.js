@@ -8,4 +8,9 @@ export default defineConfig({
   server: {
     hmr: { overlay: false },
   },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./tests/setup.js",
+  },
 });
