@@ -6,6 +6,5 @@ import { describe, it, expect } from 'vitest';
 describe('App', () => {
   it('renders headline', () => {
     return (<App />);
-    screen.debug();
   });
 });
