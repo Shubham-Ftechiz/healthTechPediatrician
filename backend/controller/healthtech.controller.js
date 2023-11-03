@@ -2,6 +2,7 @@ const User = require("../model/User");
 const HealthMetrics = require("../model/HealthMetrics");
 const ActivityGrowth = require("../model/ActivityGrowth");
 const BodyParts = require("../model/BodyParts");
+const UserInfo = require("../model/UeserInfo");
 
 const bcrypt = require("bcryptjs");
 
@@ -158,5 +159,41 @@ exports.insertBodyParts = async (req, res) => {
       res.send({
         message: err.message,
       });
+    });
+};
+
+exports.insertusersinfo = async (req, res) => {
+  const r = req.body;
+
+  UserInfo.create(r)
+    .then((data) => {
+      res.send({
+        message: "Userinfo Created",
+      });
+    })
+    .catch((err) => {
+      res.send({
+        message: err.message,
+      });
+    });
+};
+
+exports.getusersinfo = async (req, res) => {
+  const name = req.body.name;
+
+  User.findOne({ name: name })
+    .then((data) => {
+      UserInfo.find({ email: data.email })
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((err) => {
+          res.send({
+            message: err.message,
+          });
+        });
+    })
+    .catch((err) => {
+      res.send(err);
     });
 };

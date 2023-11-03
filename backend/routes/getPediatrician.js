@@ -18,6 +18,12 @@ const getPediatrician = (app) => {
   // Login Route
   router.post("/login", healthTech.login);
 
+  // UserInfo Routes
+  router.post("/inseruserinfo", healthTech.insertusersinfo);
+
+  // Get UserInfo
+  router.get("/getusersinfo", healthTech.getusersinfo);
+
   app.use("/api", router);
 };
 
