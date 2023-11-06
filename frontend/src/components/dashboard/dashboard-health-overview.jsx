@@ -10,12 +10,10 @@ const Dashboard = () => {
   return (
     <div className="mainDashboard">
 
-   
         <LeftPanel />
 
         <HealthOverviewCards />
       
-     
         <BMICalculator />
       
     </div>
