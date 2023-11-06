@@ -179,9 +179,9 @@ exports.insertusersinfo = async (req, res) => {
 };
 
 exports.getusersinfo = async (req, res) => {
-  const name = req.body.name;
+  const userEmail = req.body.email;
 
-  User.findOne({ name: name })
+  User.findOne({ email: userEmail })
     .then((data) => {
       UserInfo.find({ email: data.email })
         .then((data) => {
