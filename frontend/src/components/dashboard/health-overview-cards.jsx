@@ -12,15 +12,13 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid ,
 Legend} from "recharts";
 import { useSelector, useDispatch } from "react-redux";
 import { getHealthMetrics, getBarData } from "../../actions/index";
+import { HEALTHMETRICS, ACTIVITYGROWTH } from "../../contants/index";
 
 const HealthOverviewCards = () => {
   
    /* const healthmetricsAPI = 'https://shy-plum-dugong-tutu.cyclic.app/api/healthmetrics';
    const activitygrowthAPI = 'https://shy-plum-dugong-tutu.cyclic.app/api/activitygrowth'; */
-
-  const healthmetricsAPI = 'http://localhost:5000/api/healthmetrics';
-  const activitygrowthAPI = 'http://localhost:5000/api/activitygrowth'; 
-
+  
   const dispatch = useDispatch();
 
   const imgArr = [BloodSugarDiagram, HeartRateDiagram, BloodPresureDiagram]
@@ -31,7 +29,7 @@ const HealthOverviewCards = () => {
 
   useEffect(() => {
     // Health Cards
-    fetch(healthmetricsAPI)
+    fetch(HEALTHMETRICS)
       .then(response => response.json())
       .then((json) => {
         dispatch(getHealthMetrics(json));
@@ -39,7 +37,7 @@ const HealthOverviewCards = () => {
       .catch(error => console.error(error));
 
       // Graph
-      fetch(activitygrowthAPI)
+      fetch(ACTIVITYGROWTH)
       .then(response => response.json())
       .then((json) => {
         dispatch(getBarData(json));

@@ -13,11 +13,11 @@ import downArrow from "../../images/downArrow.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { getBodyParts } from "../../actions/index";
 
+import { BODYPARTS } from "../../contants/index";
 
 const BMICalculator = () => {
     
     // const bodyParts = 'https://shy-plum-dugong-tutu.cyclic.app/api/bodyparts';
-    const bodyParts = "http://localhost:5000/api/bodyparts";
     
     const bodyPartsDetails = useSelector((state) => state.changeBodyParts)
     const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const BMICalculator = () => {
 
     useEffect(() => {
         // Body Parts
-        fetch(bodyParts)
+        fetch(BODYPARTS)
         .then(response => response.json())
         .then((json) => {
             dispatch(getBodyParts(json));
