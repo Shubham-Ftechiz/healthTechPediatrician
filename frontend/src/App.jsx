@@ -1,7 +1,7 @@
 import React from "react";
 import Dashboard from "./components/dashboard/dashboard-health-overview";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./components/login";
 
 const App = () => (
   <Routes>
