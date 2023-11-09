@@ -21,6 +21,8 @@ const BMICalculator = () => {
     
     const bodyPartsDetails = useSelector((state) => state.changeBodyParts)
     const dispatch = useDispatch();
+
+    const jwtToken = localStorage.getItem("token");
     
     const [colourChange, setColourChange] = useState({
         background: '#fff'
@@ -38,13 +40,20 @@ const BMICalculator = () => {
 
     useEffect(() => {
         // Body Parts
-        fetch(BODYPARTS)
+        fetch(BODYPARTS, {
+            method: "GET",
+            headers: {
+                'Accept': "application/json",
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        })
         .then(response => response.json())
         .then((json) => {
             dispatch(getBodyParts(json));
         })
         .catch(error => console.error(error));
-    },[])
+    },[jwtToken])
     
     return ( 
         <div className="bmicalculatorMain">
