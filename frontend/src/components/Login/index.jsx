@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, Typography, Space} from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./login.scss";
 import { useState } from "react";
@@ -14,6 +14,7 @@ const login = () => {
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
+    const { Title, Paragraph } = Typography;
 
     const onSubmit = values => {
      console.log("values",values)
@@ -35,13 +36,19 @@ const login = () => {
   };
 
   return (
-    <div className="mainLogin">
+    <div className="mainLogin bg-img">
       {loggedIn === true && username === "admin" && passsword === "admin" && (
         <div className="successLogin"> Login Successfully </div>
       )}
       <div className="subLogin">
-        <h1>Let's Get Started</h1>
-        <p>Sign in to continue to Doclinic.</p>
+        <Title className="heading" level={2}>
+            Let's Get Started
+        </Title>
+        <Space>
+            <Paragraph className="paragraphLogin">
+                Sign in to continue to Doclinic
+            </Paragraph>
+        </Space>
       <Form
         name="normal_login"
         className="login-form"
@@ -98,7 +105,9 @@ const login = () => {
           >
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          <div className="registerlink">
+            Or <a href="/register">register now!</a>
+          </div>
         </Form.Item>
       </Form>
       </div>
