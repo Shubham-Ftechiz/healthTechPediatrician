@@ -1,16 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
-// import "antd/dist/antd.css";
-
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-
 import "./login.scss";
-
 import { useState } from "react";
-import { json, useNavigate } from "react-router-dom";
-
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { LOGIN } from "../../contants";
 
 const login = () => {
@@ -18,11 +11,12 @@ const login = () => {
 
     const [username, setUsername] = useState("");
     const [passsword, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const navigate = useNavigate();
 
     const onSubmit = values => {
-     
+     console.log("values",values)
       fetch(LOGIN, {
       method: 'POST',
       headers: {
@@ -38,14 +32,6 @@ const login = () => {
                 }
       })
       .catch(error => console.error(error));
-  };
-
-  const handleUserName = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
   };
 
   return (
