@@ -8,26 +8,36 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./login.scss";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
+
+import { useSelector, useDispatch } from "react-redux";
+import { LOGIN } from "../../contants";
 
 const login = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
-  const [username, setUsername] = useState("");
-  const [passsword, setPassword] = useState("");
+    const [username, setUsername] = useState("");
+    const [passsword, setPassword] = useState("");
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const onFinish = values => {
-    console.log('Received values of form: ', values);
-  };
-
-  const handleLoggedIn = () => {
-    navigate("/dashboard");
-    setLoggedIn(true);
-    setTimeout(() => {
-      setLoggedIn(false);
-    }, 4000);
+    const onSubmit = values => {
+     
+      fetch(LOGIN, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' },
+         body: JSON.stringify(values),
+      })
+      .then(response => response.json())
+          .then((jsonResp) => {
+              if (jsonResp.message === "Login Successfully") {
+                  navigate("/dashboard");
+                  localStorage.setItem("token",jsonResp.token)
+                }
+      })
+      .catch(error => console.error(error));
   };
 
   const handleUserName = (e) => {
@@ -52,20 +62,20 @@ const login = () => {
         initialValues={{
           remember: true,
         }}
-        onFinish={onFinish}
+        onFinish={onSubmit}
       >
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
-              message: "Please input your Username!",
+              message: "Please enter you email!",
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            placeholder="Email"
         
           />
         </Form.Item>
@@ -74,7 +84,7 @@ const login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your Password!",
+              message: "Please enter your Password!",
             },
           ]}
         >
