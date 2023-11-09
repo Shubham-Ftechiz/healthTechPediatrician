@@ -5,19 +5,14 @@ import "./login.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LOGIN } from "../../contants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const login = () => {
-    const [loggedIn, setLoggedIn] = useState(false);
-
-    const [username, setUsername] = useState("");
-    const [passsword, setPassword] = useState("");
-    const [error, setError] = useState("");
-
     const navigate = useNavigate();
     const { Title, Paragraph } = Typography;
 
     const onSubmit = values => {
-     console.log("values",values)
       fetch(LOGIN, {
       method: 'POST',
       headers: {
@@ -28,18 +23,39 @@ const login = () => {
       .then(response => response.json())
           .then((jsonResp) => {
               if (jsonResp.message === "Login Successfully") {
-                  navigate("/dashboard");
-                  localStorage.setItem("token",jsonResp.token)
+                  localStorage.setItem("token",jsonResp.token);
+                  toast.success(jsonResp.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    theme: "light",
+                  });
+                  setTimeout(()=>{
+                    navigate("/dashboard");
+                  },2000)
                 }
+            else{
+                toast.error(jsonResp.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    theme: "light",
+                  });
+            }
       })
       .catch(error => console.error(error));
   };
 
+  const navigateRegister = () => {
+    navigate("/register");
+  }
+
   return (
     <div className="mainLogin bg-img">
-      {loggedIn === true && username === "admin" && passsword === "admin" && (
-        <div className="successLogin"> Login Successfully </div>
-      )}
       <div className="subLogin">
         <Title className="heading" level={2}>
             Let's Get Started
@@ -106,10 +122,28 @@ const login = () => {
             Log in
           </Button>
           <div className="registerlink">
-            Or <a href="/register">register now!</a>
+            <span id="orStyle">Or </span>
+            <span onClick={navigateRegister} id="naviStyle">
+            register now!
+            </span>
           </div>
         </Form.Item>
       </Form>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        limit={1}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="light"
+      />
+
       </div>
     </div>
   );

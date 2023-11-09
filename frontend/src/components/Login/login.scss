@@ -48,6 +48,14 @@
         }
         .registerlink{
             margin-top: 10px;
+           #naviStyle{
+
+            &:hover{
+                color: blue;
+                cursor: pointer;
+                border-bottom:1px solid blue;
+            }
+           }
         }
     }
 
