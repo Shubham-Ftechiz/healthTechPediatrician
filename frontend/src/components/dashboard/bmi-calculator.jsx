@@ -53,7 +53,7 @@ const BMICalculator = () => {
             dispatch(getBodyParts(json));
         })
         .catch(error => console.error(error));
-    },[jwtToken])
+    },[])
     
     return ( 
         <div className="bmicalculatorMain">
