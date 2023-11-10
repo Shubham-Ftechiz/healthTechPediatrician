@@ -33,6 +33,14 @@ const HealthOverviewCards = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // CHECKING IF USER IS ALREADY LOGGED IN, THEN DON'T GO BACK
+    if (jwtToken !== 'null') {
+      window.history.pushState(null, null, window.location.href);
+      window.onpopstate = function (event) {
+        window.history.go(1);
+      };
+    }
+
     // Health Cards
     fetch(HEALTHMETRICS, {
         method: 'GET',
@@ -62,7 +70,7 @@ const HealthOverviewCards = () => {
         dispatch(getBarData(json));
       })
       .catch(error => console.error(error));
-  }, [jwtToken]);
+  }, []);
 
   const onChangeDate = (value, dateString) => {
     console.log('Selected Time: ', value);
@@ -73,8 +81,9 @@ const HealthOverviewCards = () => {
   };
 
   const logoutFunc = () => {
-    localStorage.clear();
-    navigate('/');
+    // localStorage.clear();
+    localStorage.setItem("token", null);
+    navigate('/login');
   }
 
 return(

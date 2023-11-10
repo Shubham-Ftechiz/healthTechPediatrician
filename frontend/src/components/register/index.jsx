@@ -181,7 +181,7 @@ const Registeration = () => {
 
               <Paragraph className="rest-form-font already-text">
                 Already have an account?{" "}
-                <Link to="/" className="rest-form-font signInColor">
+                <Link to="/login" className="rest-form-font signInColor">
                   Sign In
                 </Link>
               </Paragraph>
