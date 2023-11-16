@@ -13,6 +13,8 @@ Legend} from "recharts";
 import { useSelector, useDispatch } from "react-redux";
 import { getHealthMetrics, getBarData } from "../../actions/index";
 import { HEALTHMETRICS, ACTIVITYGROWTH } from "../../contants/index";
+import { Button } from 'antd';
+import { useNavigate } from "react-router-dom";
 
 const HealthOverviewCards = () => {
   
@@ -20,6 +22,7 @@ const HealthOverviewCards = () => {
    const activitygrowthAPI = 'https://shy-plum-dugong-tutu.cyclic.app/api/activitygrowth'; */
   
   const dispatch = useDispatch();
+  const jwtToken = localStorage.getItem("token");
 
   const imgArr = [BloodSugarDiagram, HeartRateDiagram, BloodPresureDiagram]
   const iconArr = [BloodSugareIcon, HeartRateIcon, BloodPresureIcon]
@@ -27,9 +30,26 @@ const HealthOverviewCards = () => {
   const healthMetricsState = useSelector((state) => state.changeHealthMetrics);
   const barGraphData = useSelector((state) => state.changeBarData);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    // CHECKING IF USER IS ALREADY LOGGED IN, THEN DON'T GO BACK
+    if (jwtToken !== 'null') {
+      window.history.pushState(null, null, window.location.href);
+      window.onpopstate = function (event) {
+        window.history.go(1);
+      };
+    }
+
     // Health Cards
-    fetch(HEALTHMETRICS)
+    fetch(HEALTHMETRICS, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + jwtToken
+      },
+        })
       .then(response => response.json())
       .then((json) => {
         dispatch(getHealthMetrics(json));
@@ -37,7 +57,14 @@ const HealthOverviewCards = () => {
       .catch(error => console.error(error));
 
       // Graph
-      fetch(ACTIVITYGROWTH)
+    fetch(ACTIVITYGROWTH, {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwtToken
+      }
+      })
       .then(response => response.json())
       .then((json) => {
         dispatch(getBarData(json));
@@ -53,16 +80,26 @@ const HealthOverviewCards = () => {
     console.log('onOk: ', value);
   };
 
+  const logoutFunc = () => {
+    // localStorage.clear();
+    localStorage.setItem("token", null);
+    navigate('/login');
+  }
+
 return(
     <div className="healthOverviewMain">
         <div className="subhealthOverview">
             <div className="healthOverviewtop">
                 <div className="healthHeading">Health Overview</div> 
-                <div className="serachbellIcon">
+        <div className="serachbellIcon">
+          <Button type="primary" size={1} style={{ float: "right",marginLeft:"15px" }} danger onClick={logoutFunc}>
+            Logout
+          </Button>
                 <BellOutlined style={{ backgroundColor: "white", color: "black",padding:"5px",border:"1px solid white"
                     ,borderRadius:"5px",marginLeft:"20px",float:"right"}}/>
                     <SearchOutlined style={{ backgroundColor: "white", color: "black",padding:"5px",border:"1px solid white"
-                ,borderRadius:"5px",float:"right"}}/>
+            , borderRadius: "5px", float: "right"
+          }} />
                 </div>
             </div>
             <div className="dateCards">
